@@ -1,0 +1,38 @@
+<% if @loans.any? %>
+<div class='row'>
+  <div class='col-md-6'>
+    <h4>Loans</h4>
+  </div>
+  <div class='col-md-6 text-right'>
+    <%= link_to 'Download to csv', download_loans_path(format: :csv), class: 'btn btn-info' %>
+  </div>
+</div>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Network</th>
+      <th>Product</th>
+      <th>Amount</th>
+      <th>Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @loans.each do |loan| %>
+      <tr>
+        <td><%= loan.id %></td>
+        <td><%= loan.loaned_at.strftime('%Y/%m/%d') %></td>
+        <td><%= loan.network %></td>
+        <td><%= loan.product %></td>
+        <td><%= loan.amount %></td>
+        <td><%= loan.contact_number %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% else %>
+  <div class='alert alert-info'>
+    You do not have any Loans loaded use this command: `rake data:import_loans[path_to_file]`
+  </div>
+<% end %>
